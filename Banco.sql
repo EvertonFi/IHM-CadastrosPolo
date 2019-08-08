@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: 03-Ago-2019 às 12:09
+-- Generation Time: 08-Ago-2019 às 22:18
 -- Versão do servidor: 10.1.19-MariaDB
 -- PHP Version: 5.6.28
 
@@ -68,6 +68,25 @@ INSERT INTO `instituicao` (`id`, `nome_instituicao`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Estrutura da tabela `salas`
+--
+
+CREATE TABLE `salas` (
+  `id` int(11) NOT NULL,
+  `Nome` varchar(50) COLLATE utf8_unicode_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Extraindo dados da tabela `salas`
+--
+
+INSERT INTO `salas` (`id`, `Nome`) VALUES
+(1, 'Everton'),
+(2, 'Teste');
+
+-- --------------------------------------------------------
+
+--
 -- Estrutura da tabela `usuario`
 --
 
@@ -101,6 +120,12 @@ ALTER TABLE `instituicao`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `salas`
+--
+ALTER TABLE `salas`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `usuario`
 --
 ALTER TABLE `usuario`
@@ -120,6 +145,11 @@ ALTER TABLE `curso`
 --
 ALTER TABLE `instituicao`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+--
+-- AUTO_INCREMENT for table `salas`
+--
+ALTER TABLE `salas`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT for table `usuario`
 --

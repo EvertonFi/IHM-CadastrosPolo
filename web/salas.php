@@ -26,32 +26,18 @@
               <form class="col s12 l12">
                 <div class="row">
                   <div class="input-field col s12 l12">
-                    <input id="icon_prefix" type="text">
+                    <input id="sala" type="text">
                     <label for="icon_prefix">Nome da Sala</label>
-                    <button class="waves-effect waves-light btn" type="submit">Cadastrar</button>
+                    <a href="#!" class="waves-effect waves-light btn" id="btn_cadastro" onclick="Cadastro()">Cadastrar</a>
                   </div>
                 </div>
               </form>
             </div>
+            <div id="resultado"></div>
             <h5 class="center">Lista de Salas</h5>
-            <table class="striped centered">
-              <thead>
-                <tr>
-                  <th>Sala</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>Alvin</td>
-                </tr>
-                <tr>
-                  <td>Alan</td>
-                </tr>
-                <tr>
-                  <td>Jonathan</td>
-                </tr>
-              </tbody>
-            </table>
+            <div id="tabela">
+              
+            </div>
           </div>
         </div>
       </div>
@@ -73,6 +59,44 @@
   <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
   <script src="../core/assets/js/materialize.js"></script>
   <script src="../core/assets/js/init.js"></script>
+  <script>
+    function Cadastro(){
+      var nome = document.getElementById('sala').value;
+      $.ajax({
+        method: "POST",
+        url: "ajax/salas.php",
+        data: { 
+          sala: nome 
+        },
+        beforeSend : function(){
+          $("#btn_cadastro").html("Carregando...");
+        }
+      })
+      .done(function(msg){
+        $("#btn_cadastro").html("Cadastra");
+        if (msg == 0) {
+          $("#resultado").html("Não foi possivel cadastra!!!");
+        }else if (msg == 1) {
+          $("#resultado").html("Cadastrado com Sucesso!");
+        }
+        Lista();
+      })
+    }
+
+    $(document).ready(function(){
+      Lista();
+    });
+
+    function Lista(){
+      $.ajax({
+        method: "POST",
+        url: "ajax/listsalas.php"
+      })
+      .done(function(msg){
+        $("#tabela").html(msg);
+      })
+    }
+  </script>
 
 </body>
 </html>

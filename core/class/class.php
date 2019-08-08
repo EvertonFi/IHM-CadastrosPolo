@@ -122,6 +122,27 @@ abstract class Cadastro
 		}
 	}
 	
+	
+	static function Sala($nome)
+	{
+		try {
+			$pdo = BancoDados::conectar();
+
+				$inserir = $pdo->prepare("INSERT INTO salas (Nome) VALUES (:nome)");
+				$inserir->bindValue(':nome',$nome);
+				$inserir->execute();
+				if ($inserir) {
+					return 1;
+				}else{
+					return 0;
+				}
+		} catch (PDOException $e) {
+			echo "Error: ".$e->getMessage();
+		}
+	}
+	
+	
+
 
 }
 
@@ -132,6 +153,19 @@ abstract class Lista
 		try {
 			$pdo = BancoDados::conectar();
 			$lista = $pdo->prepare('SELECT * FROM curso INNER JOIN instituicao ON curso.id_instituicao=instituicao.id');
+			$lista->execute();
+			$lista = $lista->fetchAll(PDO::FETCH_OBJ);
+
+			return $lista;
+		} catch (PDOException $e) {
+			echo "Error: ".$e->getMessage();
+		}
+	}
+
+	static function Salas(){
+		try {
+			$pdo = BancoDados::conectar();
+			$lista = $pdo->prepare('SELECT * FROM salas');
 			$lista->execute();
 			$lista = $lista->fetchAll(PDO::FETCH_OBJ);
 
